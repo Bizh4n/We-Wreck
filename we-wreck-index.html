@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>We Wreck</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      color: #0a0a0a;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid #e4e4e7;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      gap: 16px;
+    }
+
+    .logo img {
+      height: 64px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav a {
+      font-weight: 600;
+      color: #0a0a0a;
+    }
+
+    .nav a:hover { color: #ea580c; }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #ea580c;
+      color: white;
+    }
+
+    .btn-primary:hover { background: #c2410c; }
+
+    .btn-outline {
+      background: white;
+      color: #0a0a0a;
+      border: 1px solid #e4e4e7;
+    }
+
+    .btn-outline:hover {
+      border-color: #ea580c;
+      color: #ea580c;
+    }
+
+    .mobile-toggle {
+      display: none;
+      font-size: 24px;
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .mobile-menu {
+      display: none;
+      border-top: 1px solid #e4e4e7;
+      background: white;
+      padding: 16px 20px;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 10px 0;
+      font-weight: 600;
+    }
+
+    .section { padding: 80px 0; }
+
+    .hero-overline,
+    .section-overline {
+      color: #ea580c;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 14px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .hero-title,
+    .section-title {
+      font-size: 42px;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .hero-subtitle {
+      color: #52525b;
+      max-width: 760px;
+      margin-bottom: 24px;
+      font-size: 18px;
+    }
+
+    .button-group,
+    .trust-signals,
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .trust-signals {
+      margin-top: 18px;
+      color: #52525b;
+      font-size: 14px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .hero-card {
+      margin-top: 28px;
+      max-width: 680px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 36px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .feature-title {
+      font-size: 22px;
+      margin: 12px 0 10px;
+    }
+
+    .muted { color: #52525b; }
+
+    .service-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .service-list li {
+      background: white;
+      border: 1px solid #e4e4e7;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+
+    .faq-item {
+      border-top: 1px solid #e4e4e7;
+      padding: 18px 0;
+    }
+
+    .faq-item:first-child { border-top: none; }
+
+    .faq-question {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #fdba74;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #e4e4e7;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus { border-color: #ea580c; }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .contact-info {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .contact-info a,
+    .contact-info div {
+      color: #0a0a0a;
+      font-weight: 600;
+    }
+
+    .footer {
+      background: #0a0a0a;
+      color: white;
+      padding: 40px 0;
+      margin-top: 30px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer .muted { color: #d4d4d8; }
+
+    @media (max-width: 992px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-2 { grid-template-columns: 1fr; }
+      .nav { display: none; }
+      .mobile-toggle { display: inline-block; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-title, .section-title { font-size: 32px; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#home" class="logo">
+        <img src="https://customer-assets.emergentagent.com/job_we-wreck-demo/artifacts/a8ru9oeq_Towing%20service%20logo%20with%20damaged%20car.png" alt="We Wreck Logo">
+      </a>
+
+      <nav class="nav">
+        <a href="#services">Services</a>
+        <a href="#why-us">Why Us</a>
+        <a href="#faqs">FAQs</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="tel:0455048756" class="btn btn-primary hide-mobile">Call Now: 0455 048 756</a>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#services" onclick="toggleMenu()">Services</a>
+      <a href="#why-us" onclick="toggleMenu()">Why Us</a>
+      <a href="#faqs" onclick="toggleMenu()">FAQs</a>
+      <a href="#contact" onclick="toggleMenu()">Contact</a>
+      <a href="tel:0481823119" onclick="toggleMenu()">Call Alternate: 0481 823 119</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="section">
+      <div class="container">
+        <p class="hero-overline">Local Car Wreckers · Pakenham</p>
+        <h1 class="hero-title">Top Cash for Unwanted Cars in Pakenham</h1>
+        <p class="hero-subtitle">
+          We Wreck buys old, damaged, scrap, and non-running cars with free pickup and same-day payment.
+          Fast, fair, and fully local.
+        </p>
+
+        <div class="button-group">
+          <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+          <a href="tel:0455048756" class="btn btn-outline">0455 048 756</a>
+          <a href="tel:0481823119" class="btn btn-outline">0481 823 119</a>
+        </div>
+
+        <div class="trust-signals">
+          <span>Same-Day Pickup</span>
+          <span>Free Towing</span>
+        </div>
+
+        <div class="card hero-card">
+          <h3>Scrap Metal Pickup</h3>
+          <p class="muted" style="margin-top: 8px;">
+            Need copper, brass, or aluminium pickup? Call us directly now.
+          </p>
+          <div class="button-group" style="margin-top: 16px;">
+            <a href="tel:0455048756" class="btn btn-primary">Call Scrap Metal Pickup: 0455 048 756</a>
+            <a href="tel:0481823119" class="btn btn-outline">Alternate: 0481 823 119</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="why-us" class="section">
+      <div class="container">
+        <p class="section-overline">Why Choose Us</p>
+        <h2 class="section-title">A reliable local team with fast results</h2>
+
+        <div class="grid-4">
+          <div class="card">
+            <h3 class="feature-title">Top Cash Paid Fast</h3>
+            <p class="muted">Get a fair, same-day quote and instant payment for unwanted, old, or damaged vehicles.</p>
+          </div>
+          <div class="card">
+            <h3 class="feature-title">Free Vehicle Removal</h3>
+            <p class="muted">Our local team handles pickup at no cost, making the whole process simple and stress-free.</p>
+          </div>
+          <div class="card">
+            <h3 class="feature-title">Any Make, Any Condition</h3>
+            <p class="muted">From non-runners to written-off cars, we buy and wreck vehicles of all types.</p>
+          </div>
+          <div class="card">
+            <h3 class="feature-title">Responsible Recycling</h3>
+            <p class="muted">We salvage quality parts and recycle materials properly to reduce environmental waste.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <div class="container grid-2">
+        <div>
+          <p class="section-overline">Our Services</p>
+          <h2 class="section-title">Complete car wrecking and removal solutions</h2>
+          <ul class="service-list">
+            <li>Cash for unwanted cars</li>
+            <li>Free same-day towing</li>
+            <li>Accident and scrap car removal</li>
+            <li>Auto wrecking and parts recycling</li>
+            <li>Scrap metal buying: copper, brass, aluminium</li>
+            <li>Commercial and fleet vehicle pickups</li>
+            <li>Unregistered and non-running car collection</li>
+          </ul>
+        </div>
+
+        <div>
+          <img
+            src="https://images.unsplash.com/photo-1690986469727-1ed8bcdf6384?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA4Mzl8MHwxfHNlYXJjaHwyfHxhdXRvJTIwbWVjaGFuaWMlMjBwYXJ0cyUyMHdhcmVob3VzZXxlbnwwfHx8fDE3NzYyMTEwMzN8MA&ixlib=rb-4.1.0&q=85"
+            alt="Auto parts warehouse"
+            style="border-radius:16px; margin-bottom:20px;"
+          >
+          <div class="card">
+            <h3>Need quick pickup today?</h3>
+            <p class="muted" style="margin-top: 8px;">Call now and our local team will arrange a convenient pickup time.</p>
+            <div class="button-group" style="margin-top: 16px;">
+              <a href="tel:0455048756" class="btn btn-primary">0455 048 756</a>
+              <a href="tel:0481823119" class="btn btn-outline">0481 823 119</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faqs" class="section">
+      <div class="container">
+        <p class="section-overline">Frequently Asked Questions</p>
+        <h2 class="section-title">Everything you need to know before booking</h2>
+
+        <div class="card" style="margin-top: 28px;">
+          <h3>We also buy scrap metals</h3>
+          <p class="muted" style="margin-top: 8px;">Along with unwanted vehicles, we purchase selected scrap metal types.</p>
+          <div class="chips">
+            <span class="chip">Copper</span>
+            <span class="chip">Brass</span>
+            <span class="chip">Aluminium</span>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 28px;">
+          <div class="faq-item">
+            <div class="faq-question">How much cash can I get for my car?</div>
+            <div class="muted">The amount depends on the make, model, age, and condition of your vehicle. We provide top market rates with an honest on-the-spot assessment.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Do I need to pay for car removal?</div>
+            <div class="muted">No. Car removal is 100% free when you sell your vehicle to We Wreck. There are no hidden towing charges.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">What suburbs do you service?</div>
+            <div class="muted">We are based in Pakenham and service surrounding suburbs across the wider Melbourne area. Call us to confirm your exact location.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Do you accept unregistered or damaged cars?</div>
+            <div class="muted">Yes. We buy cars in any condition, including unregistered, damaged, written-off, and non-running vehicles. Proof of ownership is required.</div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">Do you buy scrap metal?</div>
+            <div class="muted">Yes. We buy selected scrap metals, including copper, brass, and aluminium. Call us to confirm quantity and pickup details.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container grid-2">
+        <div class="card">
+          <p class="section-overline">Get a Free Quote</p>
+          <h2 class="section-title">Tell us about your vehicle</h2>
+
+          <form onsubmit="submitForm(event)">
+            <input type="text" id="name" placeholder="Your name" />
+            <input type="text" id="phone" placeholder="Phone number" />
+            <input type="text" id="vehicle" placeholder="Vehicle make / model" />
+            <textarea id="message" placeholder="Extra details (optional)"></textarea>
+            <button type="submit" class="btn btn-primary">Request My Quote</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <p class="section-overline">Contact Details</p>
+          <h2 class="section-title">We Wreck</h2>
+          <p class="muted">Local wreckers focused on fast pickups, fair prices, and dependable service.</p>
+
+          <div class="contact-info">
+            <a href="tel:0455048756">0455 048 756</a>
+            <a href="tel:0481823119">0481 823 119</a>
+            <div>14 Drovers Place Pakenham</div>
+          </div>
+
+          <div class="contact-buttons" style="margin-top: 20px;">
+            <a href="https://www.google.com/maps/search/?api=1&query=14+Drovers+Place+Pakenham" target="_blank" class="btn btn-primary">
+              Open in Google Maps
+            </a>
+            <a href="https://maps.apple.com/?address=14%20Drovers%20Place%20Pakenham" target="_blank" class="btn btn-outline">
+              Open in Apple Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="logo">
+        <img src="https://customer-assets.emergentagent.com/job_we-wreck-demo/artifacts/a8ru9oeq_Towing%20service%20logo%20with%20damaged%20car.png" alt="We Wreck Logo">
+      </div>
+
+      <div class="muted">
+        <p>0455 048 756</p>
+        <p>0481 823 119</p>
+        <p>14 Drovers Place Pakenham</p>
+      </div>
+
+      <p class="muted">© <span id="year"></span> We Wreck. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const vehicle = document.getElementById("vehicle").value.trim();
+
+      if (!name || !phone || !vehicle) {
+        alert("Please complete name, phone, and vehicle details.");
+        return;
+      }
+
+      alert("Thanks! We’ll call you shortly with your free quote.");
+
+      document.getElementById("name").value = "";
+      document.getElementById("phone").value = "";
+      document.getElementById("vehicle").value = "";
+      document.getElementById("message").value = "";
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
